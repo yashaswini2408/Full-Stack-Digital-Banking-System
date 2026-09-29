@@ -1,0 +1,138 @@
+<div class="container mt-4" *ngIf="customer.customerId; else loadingOrError">
+       <div *ngIf="updateSuccess" class="alert alert-success mt-3">
+      Customer profile updated successfully!
+    </div>
+    <div *ngIf="updateError" class="alert alert-danger mt-3">
+      {{ updateError }}
+    </div>
+  <h3 class="mb-4">Update Customer Profile</h3>
+
+  <form #updateForm="ngForm" (ngSubmit)="onSubmit(updateForm)" class="bg-light p-4 rounded shadow">
+
+    <div class="row g-3">
+
+      <div class="col-md-6">
+        <label for="name" class="form-label">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-control"
+          required
+          [(ngModel)]="customer.name"
+          #name="ngModel"
+        />
+        <div class="text-danger" *ngIf="name.invalid && name.touched">Name is required</div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="gender" class="form-label">Gender</label>
+        <select
+          id="gender"
+          name="gender"
+          class="form-select"
+          required
+          [(ngModel)]="customer.gender"
+          #gender="ngModel"
+        >
+          <option value="" disabled>Select gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+        <div class="text-danger" *ngIf="gender.invalid && gender.touched">Gender is required</div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="contactNumber" class="form-label">Contact Number</label>
+        <input
+          type="tel"
+          id="contactNumber"
+          name="contactNumber"
+          class="form-control"
+          required
+          pattern="[0-9]{10}"
+          [(ngModel)]="customer.contactNumber"
+          #contactNumber="ngModel"
+        />
+        <div class="text-danger" *ngIf="contactNumber.invalid && contactNumber.touched">Valid 10-digit contact required</div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="dateOfBirth" class="form-label">Date of Birth</label>
+        <input
+          type="date"
+          id="dateOfBirth"
+          name="dateOfBirth"
+          class="form-control"
+          required
+          [(ngModel)]="customer.dateOfBirth"
+          #dateOfBirth="ngModel"
+        />
+        <div class="text-danger" *ngIf="dateOfBirth.invalid && dateOfBirth.touched">Date of Birth required</div>
+      </div>
+
+      <div class="col-md-12">
+        <label for="address" class="form-label">Address</label>
+        <textarea
+          id="address"
+          name="address"
+          rows="2"
+          class="form-control"
+          required
+          [(ngModel)]="customer.address"
+          #address="ngModel"
+        ></textarea>
+        <div class="text-danger" *ngIf="address.invalid && address.touched">Address is required</div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="aadharNumber" class="form-label">Aadhar Number</label>
+        <input
+          type="text"
+          id="aadharNumber"
+          name="aadharNumber"
+          class="form-control"
+          required
+          pattern="[0-9]{12}"
+          [(ngModel)]="customer.aadharNumber"
+          #aadharNumber="ngModel"
+        />
+        <div class="text-danger" *ngIf="aadharNumber.invalid && aadharNumber.touched">Valid 12-digit Aadhar required</div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="panNumber" class="form-label">PAN Number</label>
+        <input
+          type="text"
+          id="panNumber"
+          name="panNumber"
+          class="form-control"
+          required
+          pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+          [(ngModel)]="customer.panNumber"
+          #panNumber="ngModel"
+        />
+        <div class="text-danger" *ngIf="panNumber.invalid && panNumber.touched">Valid PAN required (ex: ABCDE1234F)</div>
+      </div>
+
+      <div class="col-12 d-flex justify-content-end mt-3">
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="updateForm.invalid"
+        >
+          Update
+        </button>
+      </div>
+
+    </div>
+
+  </form>
+</div>
+
+<ng-template #loadingOrError>
+  <div class="alert alert-warning mt-4">
+    {{ updateError || 'Loading customer data...' }}
+  </div>
+</ng-template>

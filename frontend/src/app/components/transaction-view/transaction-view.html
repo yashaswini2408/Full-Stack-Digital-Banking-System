@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
+    <h4 class="text-primary mb-3 mb-md-0">All Transactions</h4>
+    <input
+      type="text"
+      class="form-control w-100 w-md-25"
+      placeholder="Search by Account ID"
+      [(ngModel)]="accountIdSearch"
+      (input)="filterByAccountId()"
+    />
+  </div>
+
+  <div class="table-responsive rounded">
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>Transaction ID</th>
+          <th>Account ID</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let tx of filteredTransactions">
+          <td>{{ tx.transactionId }}</td>
+          <td>{{ tx.accountId }}</td>
+          <td>{{ tx.transactionType }}</td>
+          <td>{{ tx.amount }}</td>
+          <td>{{ tx.transactionDate | date: 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

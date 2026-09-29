@@ -1,0 +1,133 @@
+<div class="container mt-4">
+  <div class="row">
+    <div *ngIf="success" class="alert alert-success mt-3 text-center">Account opened successfully!</div>
+        <div *ngIf="error" class="alert alert-danger mt-3 text-center">{{ error }}</div>
+    <!-- Branch List -->
+    <div class="col-lg-6 mb-4">
+      <h5 class="mb-3">Available Bank Branches</h5>
+      <div class="table-responsive shadow rounded">
+        <table class="table table-bordered table-striped mb-0">
+          <thead class="table-primary">
+            <tr>
+              <th>Branch ID</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>IFSC Prefix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let branch of bankBranches">
+              <td>{{ branch.branchId }}</td>
+              <td>{{ branch.name }}</td>
+              <td>{{ branch.address }}</td>
+              <td>{{ branch.ifscPrefix }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Open Account Form -->
+    <div class="col-lg-6">
+      <form #form="ngForm" (ngSubmit)="fetchCustomerAndSubmit(form)" class="border p-4 shadow rounded bg-light">
+        <h4 class="text-center mb-4">Open New Account</h4>
+
+        <!-- 🆕 Add User ID Input -->
+    <div class="mb-3">
+      <label for="userId" class="form-label">Enter Your User ID</label>
+      <input
+        type="number"
+        id="userId"
+        class="form-control"
+        required
+        min="1"
+        [(ngModel)]="inputUserId"
+        name="inputUserId"
+        #inputUserIdModel="ngModel"
+        placeholder="Enter your registered User ID"
+      />
+      <div class="text-danger" *ngIf="inputUserIdModel.invalid && inputUserIdModel.touched">
+        User ID is required and must be positive.
+      </div>
+    </div>
+
+        <div class="mb-3">
+          <label for="branchId" class="form-label">Select Branch</label>
+          <select
+            id="branchId"
+            class="form-select"
+            required
+            [(ngModel)]="account.branchId"
+            name="branchId"
+            #branchId="ngModel"
+          >
+            <option value="" disabled selected>Select branch</option>
+            <option *ngFor="let branch of bankBranches" [value]="branch.branchId">
+              {{ branch.name }} (ID: {{ branch.branchId }})
+            </option>
+          </select>
+          <div class="text-danger" *ngIf="branchId.invalid && branchId.touched">Branch selection is required</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="accountType" class="form-label">Account Type</label>
+          <input
+            type="text"
+            id="accountType"
+            class="form-control"
+            required
+            [(ngModel)]="account.accountType"
+            name="accountType"
+            #accountType="ngModel"
+            placeholder="e.g. Savings, Current"
+          />
+          <div class="text-danger" *ngIf="accountType.invalid && accountType.touched">Account type is required</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="balance" class="form-label">Initial Balance</label>
+          <input
+            type="number"
+            id="balance"
+            class="form-control"
+            required
+            min="1"
+            [(ngModel)]="account.balance"
+            name="balance"
+            #balance="ngModel"
+            placeholder="Enter initial deposit amount"
+          />
+          <div class="text-danger" *ngIf="balance.invalid && balance.touched">
+            Balance must be a positive number
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="ifscCode" class="form-label">IFSC Code</label>
+          <input
+            type="text"
+            id="ifscCode"
+            class="form-control"
+            required
+            minlength="11"
+            maxlength="11"
+            pattern="^[A-Z]{4}0[A-Z0-9]{6}$"
+            [(ngModel)]="account.ifscCode"
+            name="ifscCode"
+            #ifscCode="ngModel"
+            placeholder="Enter IFSC Code"
+          />
+          <div class="text-danger" *ngIf="ifscCode.invalid && (ifscCode.dirty || ifscCode.touched)">
+            <div *ngIf="ifscCode.errors?.['required']">IFSC Code is required.</div>
+            <div *ngIf="ifscCode.errors?.['minlength'] || ifscCode.errors?.['maxlength']">Must be exactly 11 characters.</div>
+            <div *ngIf="ifscCode.errors?.['pattern']">Invalid IFSC code format.</div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="form.invalid">Open Account</button>
+
+        
+      </form>
+    </div>
+  </div>
+</div>

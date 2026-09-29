@@ -1,0 +1,79 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow-sm p-4" style="max-width: 500px; width: 100%;">
+    <h4 class="text-center mb-4 text-primary">Apply for Loan</h4>
+    
+      <div *ngIf="message" class="mt-3 text-center" [ngClass]="messageClass">
+        {{ message }}
+      </div>
+
+    <form #loanForm="ngForm" (ngSubmit)="onApplyLoan(loanForm)" novalidate>
+      
+      
+      <div class="mb-3">
+        <label class="form-label">Customer ID</label>
+        <input
+          type="text"
+          class="form-control"
+          name="customerId"
+          required
+          [(ngModel)]="customerId"
+          #customerIdRef="ngModel"
+          [class.is-invalid]="customerIdRef.invalid && customerIdRef.touched"
+        />
+        <div class="invalid-feedback">Customer ID is required</div>
+      </div>
+
+      
+      <div class="mb-3">
+        <label class="form-label">Loan ID</label>
+        <input
+          type="text"
+          class="form-control"
+          [value]="loanId"
+        />
+      </div>
+
+     
+      <div class="mb-3">
+        <label class="form-label">Requested Amount (₹)</label>
+        <input
+          type="number"
+          class="form-control"
+          name="requestedAmount"
+          required
+          min="1"
+          [(ngModel)]="requestedAmount"
+          #amountRef="ngModel"
+          [class.is-invalid]="amountRef.invalid && amountRef.touched"
+        />
+        <div class="invalid-feedback">Amount must be greater than 0</div>
+      </div>
+
+      
+      <div class="mb-3">
+        <label class="form-label">Purpose</label>
+        <textarea
+          class="form-control"
+          name="purpose"
+          rows="3"
+          required
+          [(ngModel)]="purpose"
+          #purposeRef="ngModel"
+          [class.is-invalid]="purposeRef.invalid && purposeRef.touched"
+        ></textarea>
+        <div class="invalid-feedback">Purpose is required</div>
+      </div>
+
+      
+      <button
+        class="btn btn-primary w-100"
+        type="submit"
+        [disabled]="loanForm.invalid"
+      >
+        Submit Application
+      </button>
+
+      
+    </form>
+  </div>
+</div>

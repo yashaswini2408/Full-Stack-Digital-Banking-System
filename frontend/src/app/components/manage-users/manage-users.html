@@ -1,0 +1,110 @@
+<div class="container py-5" style="max-width: 960px;">
+
+  <!-- Title -->
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-primary">User Management</h2>
+    <p class="text-muted">Add, edit, and manage users</p>
+  </div>
+
+  <!-- Controls: Add User + Search -->
+  <div class="row mb-4">
+    <div class="col-md-6 mb-2 mb-md-0">
+      <button class="btn btn-primary w-100" (click)="newUser()">
+        <i class="bi bi-person-plus-fill me-1"></i> Add New User
+      </button>
+    </div>
+    <div class="col-md-6">
+      <input type="text" id="searchUserId" class="form-control" placeholder="Search by User ID..."
+        [(ngModel)]="searchUserId" (input)="searchUser()" />
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-responsive mb-5">
+    <table class="table table-hover align-middle text-center">
+      <thead class="table-light">
+        <tr>
+          <th>User ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role ID</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUsers">
+          <td>{{ user.userId }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.roleId }}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-secondary rounded-circle me-2" (click)="selectUser(user)" title="Edit">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger rounded-circle" (click)="deleteUser(user.userId)" title="Delete">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredUsers.length === 0">
+          <td colspan="5" class="text-muted fst-italic py-3">No users found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Form Section -->
+  <div *ngIf="selectedUser" class="card mx-auto shadow" style="max-width: 500px;">
+    <div class="card-body">
+      <h5 class="card-title text-center fw-bold text-primary mb-4">
+        {{ isEditMode ? 'Edit User' : 'Add New User' }}
+      </h5>
+
+      <form (ngSubmit)="saveUser()" #userForm="ngForm" novalidate>
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input type="text" class="form-control" required [(ngModel)]="selectedUser.username"
+            name="username" #username="ngModel" [class.is-invalid]="username.invalid && username.touched" />
+          <div *ngIf="username.invalid && username.touched" class="invalid-feedback">
+            Username is required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" required [(ngModel)]="selectedUser.email"
+            name="email" #email="ngModel" [class.is-invalid]="email.invalid && email.touched" />
+          <div *ngIf="email.invalid && email.touched" class="invalid-feedback">
+            Valid email required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" required [(ngModel)]="selectedUser.password"
+            name="password" #password="ngModel" [class.is-invalid]="password.invalid && password.touched" />
+          <div *ngIf="password.invalid && password.touched" class="invalid-feedback">
+            Password is required.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Role ID</label>
+          <input type="number" class="form-control" min="1" required [(ngModel)]="selectedUser.roleId"
+            name="roleId" #roleId="ngModel" [class.is-invalid]="roleId.invalid && roleId.touched" />
+          <div *ngIf="roleId.invalid && roleId.touched" class="invalid-feedback">
+            Role ID must be at least 1.
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center gap-3">
+          <button class="btn btn-success px-4" type="submit" [disabled]="userForm.invalid">
+            {{ isEditMode ? 'Update' : 'Add' }}
+          </button>
+          <button class="btn btn-secondary px-4" type="button" (click)="clearSelection()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <h3 class="mb-4 text-secondary fw-semibold d-flex align-items-center gap-2">
+    <i class="bi bi-receipt"></i>
+    Transactions for Account ID: {{ accountId }}
+  </h3>
+
+  <div *ngIf="loading" class="text-center my-3">
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div *ngIf="transactions.length > 0" class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Type</th>
+          <th>Amount (₹)</th>
+          <th>Date</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let txn of transactions">
+          <td>{{ txn.transactionId }}</td>
+          <td>{{ txn.transactionType }}</td>
+          <td>{{ txn.amount | currency:'INR' }}</td>
+          <td>{{ txn.transactionDate | date:'medium' }}</td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!loading && transactions.length === 0 && !error" class="alert alert-warning">
+    No transactions found for this account.
+  </div>
+</div>

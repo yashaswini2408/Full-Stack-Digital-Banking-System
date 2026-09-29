@@ -1,0 +1,113 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+  <div class="card shadow-sm rounded" style="width: 400px; max-width: 100%; padding: 1.5rem;">
+    <h3 class="text-center elegant-title mb-1">Register here</h3>
+    <div class="text-center mb-3">
+      <img src="assets/logo.png" alt="Logo" style="max-width: 110px; height: auto;" />
+    </div>
+
+    <form #regForm="ngForm" (ngSubmit)="onSubmit(regForm)" novalidate>
+      <!-- Username -->
+      <div class="mb-3">
+        <label for="username" class="form-label fw-semibold">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="form-control"
+          autocomplete="username"
+          required
+          minlength="3"
+          [(ngModel)]="user.username"
+          #username="ngModel"
+          [class.is-invalid]="username.invalid && (username.dirty || username.touched)"
+        />
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="invalid-feedback">
+          <div *ngIf="username.errors?.['required']">Username is required</div>
+          <div *ngIf="username.errors?.['minlength']">Minimum 3 characters</div>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          autocomplete="email"
+          required
+          email
+          [(ngModel)]="user.email"
+          #email="ngModel"
+          [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+        />
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+          <div *ngIf="email.errors?.['required']">Email is required</div>
+          <div *ngIf="email.errors?.['email']">Enter a valid email</div>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          autocomplete="new-password"
+          required
+          [(ngModel)]="user.password"
+          #password="ngModel"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
+          [class.is-invalid]="password.invalid && (password.dirty || password.touched)"
+        />
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback">
+          <div *ngIf="password.errors?.['required']">Password is required</div>
+          <div *ngIf="password.errors?.['pattern']">
+            Must be at least 8 characters and include uppercase, lowercase, and number
+          </div>
+        </div>
+      </div>
+
+      <!-- Role -->
+      <div class="mb-4">
+        <label for="roleId" class="form-label fw-semibold">Role</label>
+        <select
+          id="roleId"
+          name="roleId"
+          class="form-select"
+          required
+          [(ngModel)]="user.roleId"
+          #roleId="ngModel"
+          [class.is-invalid]="roleId.invalid && (roleId.dirty || roleId.touched)"
+        >
+          <option [ngValue]="null" disabled>Select role</option>
+          <option *ngFor="let role of roles" [ngValue]="role.id">{{ role.name }}</option>
+        </select>
+        <div *ngIf="roleId.invalid && (roleId.dirty || roleId.touched)" class="invalid-feedback">
+          Role selection is required
+        </div>
+      </div>
+
+      <!-- Register Button -->
+      <button class="btn btn-primary w-100 fw-semibold" type="submit" [disabled]="regForm.invalid">
+        Register
+      </button>
+
+      <!-- Login Link -->
+      <div class="text-center mt-3">
+        <small class="text-muted">
+          Already registered?
+          <a routerLink="/login" class="text-decoration-none text-primary fw-semibold">Login</a>
+        </small>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+</div>

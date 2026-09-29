@@ -1,0 +1,152 @@
+<div class="container mt-4">
+  <form #regForm="ngForm" (ngSubmit)="onSubmit(regForm)" class="bg-light p-4 rounded shadow">
+    <h4 class="text-primary mb-4">Customer Registration</h4>
+
+    <div class="row g-3">
+
+      <!-- User ID input -->
+<!-- User ID input (disabled and auto-filled) -->
+<div class="mb-3">
+  <label for="userId" class="form-label">User ID (Auto-filled)</label>
+  <input
+    type="number"
+    class="form-control"
+    id="userId"
+    name="userId"
+    [(ngModel)]="customer.userId"
+    readonly
+  />
+</div>
+      <!-- Name input -->
+      <div class="col-md-6">
+        <label>Name</label>
+        <input
+          type="text"
+          class="form-control"
+          required
+          [(ngModel)]="customer.name"
+          name="name"
+          #name="ngModel"
+          placeholder="Enter your full name"
+        />
+        <div class="text-danger" *ngIf="name.invalid && name.touched">
+          Name is required
+        </div>
+      </div>
+
+      <!-- Gender select -->
+      <div class="col-md-6">
+        <label>Gender</label>
+        <select
+          class="form-select"
+          required
+          [(ngModel)]="customer.gender"
+          name="gender"
+          #gender="ngModel"
+        >
+          <option value="" disabled selected>Select gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+        <div class="text-danger" *ngIf="gender.invalid && gender.touched">
+          Gender is required
+        </div>
+      </div>
+
+      <!-- Contact Number -->
+      <div class="col-md-6">
+        <label>Contact Number</label>
+        <input
+          type="tel"
+          class="form-control"
+          required
+          pattern="[0-9]{10}"
+          [(ngModel)]="customer.contactNumber"
+          name="contactNumber"
+          #contactNumber="ngModel"
+          placeholder="10 digit phone number"
+        />
+        <div class="text-danger" *ngIf="contactNumber.invalid && contactNumber.touched">
+          Enter a valid 10-digit contact number
+        </div>
+      </div>
+
+      <!-- Date of Birth -->
+      <div class="col-md-6">
+        <label>Date of Birth</label>
+        <input
+          type="date"
+          class="form-control"
+          required
+          [(ngModel)]="customer.dateOfBirth"
+          name="dateOfBirth"
+          #dateOfBirth="ngModel"
+        />
+        <div class="text-danger" *ngIf="dateOfBirth.invalid && dateOfBirth.touched">
+          Date of Birth is required
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="col-md-12">
+        <label>Address</label>
+        <textarea
+          class="form-control"
+          rows="2"
+          required
+          [(ngModel)]="customer.address"
+          name="address"
+          #address="ngModel"
+          placeholder="Enter your address"
+        ></textarea>
+        <div class="text-danger" *ngIf="address.invalid && address.touched">
+          Address is required
+        </div>
+      </div>
+
+      <!-- Aadhar Number -->
+      <div class="col-md-6">
+        <label>Aadhar Number</label>
+        <input
+          type="text"
+          class="form-control"
+          required
+          pattern="[0-9]{12}"
+          [(ngModel)]="customer.aadharNumber"
+          name="aadharNumber"
+          #aadharNumber="ngModel"
+          placeholder="12 digit Aadhar Number"
+        />
+        <div class="text-danger" *ngIf="aadharNumber.invalid && aadharNumber.touched">
+          Enter a valid 12-digit Aadhar number
+        </div>
+      </div>
+
+      <!-- PAN Number -->
+      <div class="col-md-6">
+        <label>PAN Number</label>
+     <input
+  type="text"
+  class="form-control"
+  required
+  pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+  [(ngModel)]="customer.panNumber"
+  name="panNumber"
+  #panNumber="ngModel"
+  placeholder="ABCDE1234F"
+/>
+<div class="text-danger" *ngIf="panNumber.invalid && panNumber.touched">
+  Enter a valid PAN number (e.g. ABCDE1234F)
+</div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="col-12 d-flex justify-content-end">
+        <button class="btn btn-success" type="submit" [disabled]="regForm.invalid">
+          Register
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

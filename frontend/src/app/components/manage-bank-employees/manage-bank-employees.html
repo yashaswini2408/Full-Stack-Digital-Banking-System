@@ -1,0 +1,79 @@
+<div class="container py-5" style="max-width: 960px;">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-primary">Bank Employee Management</h2>
+    <p class="text-muted">Add, edit, and manage bank employees</p>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <button class="btn btn-primary w-100" (click)="newEmployee()">Add New Employee</button>
+    </div>
+    <div class="col-md-6">
+      <input type="text" class="form-control" placeholder="Search by User ID..."
+        [(ngModel)]="searchId" (input)="searchEmployee()" />
+    </div>
+  </div>
+
+  <div class="table-responsive mb-5">
+    <table class="table table-hover text-center">
+      <thead class="table-light">
+        <tr>
+          <th>User ID</th>
+          <th>Name</th>
+          <th>Contact</th>
+          <th>Branch ID</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of filteredEmployees">
+          <td>{{ emp.userId }}</td>
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.contactNumber }}</td>
+          <td>{{ emp.branchId }}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-secondary" (click)="selectEmployee(emp)">Edit</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteEmployee(emp.userId)">Delete</button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredEmployees.length === 0">
+          <td colspan="5">No employees found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="selectedEmployee" class="card mx-auto" style="max-width: 500px;">
+    <div class="card-body">
+      <h5 class="card-title">{{ isEditMode ? 'Edit' : 'Add' }} Employee</h5>
+      <form (ngSubmit)="saveEmployee()" #employeeForm="ngForm" novalidate>
+        <div class="mb-3">
+          <label class="form-label">User ID</label>
+          <input type="number" class="form-control" required [(ngModel)]="selectedEmployee.userId"
+            name="userId" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" required [(ngModel)]="selectedEmployee.name"
+            name="name" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Contact Number</label>
+          <input type="text" class="form-control" required [(ngModel)]="selectedEmployee.contactNumber"
+            name="contactNumber" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Branch ID</label>
+          <input type="number" class="form-control" required [(ngModel)]="selectedEmployee.branchId"
+            name="branchId" />
+        </div>
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-success" type="submit" [disabled]="employeeForm.invalid">
+            {{ isEditMode ? 'Update' : 'Create' }}
+          </button>
+          <button class="btn btn-secondary" type="button" (click)="clearSelection()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

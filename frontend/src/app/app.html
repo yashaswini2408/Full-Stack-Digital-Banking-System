@@ -1,0 +1,13 @@
+<!--
+<nav *ngIf="showNav">
+  <a routerLink="/">Home</a>
+  <a *ngIf="!authService.getCurrentUser()" routerLink="/login">Login</a>
+  <a *ngIf="authService.getCurrentUser()" (click)="authService.logout()">Logout</a>
+</nav>
+-->
+<!-- <div class="content">
+  <span>{{ title }} app is running!</span>
+</div> -->
+
+
+<router-outlet></router-outlet>

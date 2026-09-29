@@ -1,0 +1,71 @@
+<div class="d-flex justify-content-center align-items-center min-vh-100 bg-light">
+  <div class="card shadow-sm rounded p-4" style="max-width: 400px; width: 100%;">
+    <h3 class="text-center mb-4">Login</h3>
+    <div class="text-center mb-3">
+      <img src="assets/logo.png" alt="Logo" style="max-width: 110px; height: auto;" />
+    </div>
+
+    <!-- Success message after registration -->
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Username -->
+      <div class="mb-3">
+        <label for="username" class="form-label fw-semibold">Username</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="form-control"
+          autocomplete="username"
+          [class.is-invalid]="f['username'].invalid && (f['username'].dirty || f['username'].touched)"
+          placeholder="Enter username"
+        />
+        <div *ngIf="f['username'].invalid && (f['username'].dirty || f['username'].touched)" class="invalid-feedback">
+          <div *ngIf="f['username'].errors?.['required']">Username is required</div>
+          <div *ngIf="f['username'].errors?.['minlength']">Minimum 3 characters required</div>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control"
+          autocomplete="current-password"
+          [class.is-invalid]="f['password'].invalid && (f['password'].dirty || f['password'].touched)"
+          placeholder="Enter password"
+        />
+        <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="invalid-feedback">
+          Password is required
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn btn-primary w-100 fw-semibold"
+        [disabled]="loginForm.invalid"
+      >
+        Login
+      </button>
+
+      <!-- Error message -->
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
+    </form>
+
+    <!-- Link to Registration -->
+    <div class="text-center mt-3">
+      <a routerLink="/register" [queryParams]="{ returnUrl: returnUrl }" class="text-decoration-none small">
+        Don't have an account? Register
+      </a>
+    </div>
+  </div>
+</div>

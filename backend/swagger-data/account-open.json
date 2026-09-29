@@ -1,0 +1,8 @@
+{
+  "userId": 2,
+  "accountType": "SAVINGS",
+  "ifscCode": "MVB0001001",
+  "branchName": "Main Branch",
+  "branchAddress": "123 Main Street",
+  "initialBalance": 15000.00
+}

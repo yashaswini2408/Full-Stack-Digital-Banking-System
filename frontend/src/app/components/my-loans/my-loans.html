@@ -1,0 +1,38 @@
+<div class="container mt-4" style="max-width: 800px;">
+  <h3 class="text-center mb-4">My Loan Applications</h3>
+
+  <div *ngIf="message" class="mb-3" [ngClass]="messageClass">
+    {{ message }}
+  </div>
+
+  <div *ngIf="loanApplications.length > 0" class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Application ID</th>
+          <th>Loan ID</th>
+          <th>Requested Amount (₹)</th>
+          <th>Purpose</th>
+          <th>Application Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let app of loanApplications">
+          <td>{{ app.applicationId }}</td>
+          <td>{{ app.loanId }}</td>
+          <td>{{ app.requestedAmount | currency:'INR':'symbol':'1.0-0' }}</td>
+          <td>{{ app.purpose }}</td>
+          <td>{{ app.applicationDate | date:'medium' }}</td>
+          <td [ngClass]="{
+                'text-warning': app.status?.toLowerCase() === 'pending',
+                'text-success': app.status?.toLowerCase() === 'approved',
+                'text-danger': app.status?.toLowerCase() === 'declined'
+              }">
+            {{ app.status }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

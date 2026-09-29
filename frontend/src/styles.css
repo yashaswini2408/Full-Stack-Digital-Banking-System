@@ -1,0 +1,8 @@
+.elegant-title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;          /* Slightly bolder than labels */
+  font-size: 1.75rem;        /* A bit larger than labels */
+  color: #212529;            /* Bootstrap text color */
+  letter-spacing: 0.02em;
+  margin-bottom: 1rem;       /* space below the title */
+}

@@ -1,0 +1,211 @@
+<div class="container mt-5" style="max-width: 480px;">
+  <h2 class="mb-4 text-center">Transactions</h2>
+  <div *ngIf="operation === 'transfer' && message" class="mt-3 alert" [ngClass]="messageClass">
+      {{ message }}
+    </div>
+        <div *ngIf="operation === 'deposit' && message" class="mt-3 alert" [ngClass]="messageClass">
+      {{ message }}
+    </div>
+        <div *ngIf="operation === 'withdraw' && message" class="mt-3 alert" [ngClass]="messageClass">
+      {{ message }}
+    </div>
+
+  <ul class="nav nav-tabs mb-4 justify-content-center">
+    <li class="nav-item">
+      <button
+        class="nav-link"
+        [class.active]="operation === 'deposit'"
+        (click)="switchOperation('deposit')"
+        type="button"
+      >
+        Deposit
+      </button>
+    </li>
+    <li class="nav-item">
+      <button
+        class="nav-link"
+        [class.active]="operation === 'withdraw'"
+        (click)="switchOperation('withdraw')"
+        type="button"
+      >
+        Withdraw
+      </button>
+    </li>
+    <li class="nav-item">
+      <button
+        class="nav-link"
+        [class.active]="operation === 'transfer'"
+        (click)="switchOperation('transfer')"
+        type="button"
+      >
+        Transfer
+      </button>
+    </li>
+  </ul>
+
+  <!-- Deposit Form -->
+  <form
+    *ngIf="operation === 'deposit'"
+    #depositForm="ngForm"
+    (ngSubmit)="onDeposit(depositForm)"
+    novalidate
+    class="border rounded p-4 bg-light"
+  >
+    <div class="mb-3">
+      <label for="depositAccountId" class="form-label">Account ID</label>
+      <input
+        type="text"
+        id="depositAccountId"
+        name="depositAccountId"
+        class="form-control"
+        required
+        [(ngModel)]="depositAccountId"
+        #depositAccountIdRef="ngModel"
+        [class.is-invalid]="depositAccountIdRef.invalid && depositAccountIdRef.touched"
+      />
+      <div class="invalid-feedback">Account ID is required</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="depositAmount" class="form-label">Amount</label>
+      <input
+        type="number"
+        id="depositAmount"
+        name="depositAmount"
+        class="form-control"
+        required
+        min="1"
+        [(ngModel)]="depositAmount"
+        #depositAmountRef="ngModel"
+        [class.is-invalid]="depositAmountRef.invalid && depositAmountRef.touched"
+      />
+      <div class="invalid-feedback">Amount must be at least 1</div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-success w-100"
+      [disabled]="depositForm.invalid || loading"
+    >
+      Deposit
+    </button>
+
+
+
+  </form>
+
+  <!-- Withdraw Form -->
+  <form
+    *ngIf="operation === 'withdraw'"
+    #withdrawForm="ngForm"
+    (ngSubmit)="onWithdraw(withdrawForm)"
+    novalidate
+    class="border rounded p-4 bg-light"
+  >
+    <div class="mb-3">
+      <label for="withdrawAccountId" class="form-label">Account ID</label>
+      <input
+        type="text"
+        id="withdrawAccountId"
+        name="withdrawAccountId"
+        class="form-control"
+        required
+        [(ngModel)]="withdrawAccountId"
+        #withdrawAccountIdRef="ngModel"
+        [class.is-invalid]="withdrawAccountIdRef.invalid && withdrawAccountIdRef.touched"
+      />
+      <div class="invalid-feedback">Account ID is required</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="withdrawAmount" class="form-label">Amount</label>
+      <input
+        type="number"
+        id="withdrawAmount"
+        name="withdrawAmount"
+        class="form-control"
+        required
+        min="1"
+        [(ngModel)]="withdrawAmount"
+        #withdrawAmountRef="ngModel"
+        [class.is-invalid]="withdrawAmountRef.invalid && withdrawAmountRef.touched"
+      />
+      <div class="invalid-feedback">Amount must be at least 1</div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-danger w-100"
+      [disabled]="withdrawForm.invalid || loading"
+    >
+      Withdraw
+    </button>
+
+
+  </form>
+
+  <!-- Transfer Form -->
+  <form
+    *ngIf="operation === 'transfer'"
+    #transferForm="ngForm"
+    (ngSubmit)="onTransfer(transferForm)"
+    novalidate
+    class="border rounded p-4 bg-light"
+  >
+    <div class="mb-3">
+      <label for="fromAccountId" class="form-label">From Account Number</label>
+      <input
+        type="text"
+        id="fromAccountId"
+        name="fromAccountId"
+        class="form-control"
+        required
+        [(ngModel)]="transferFromAccountId"
+        #fromAccountIdRef="ngModel"
+        [class.is-invalid]="fromAccountIdRef.invalid && fromAccountIdRef.touched"
+      />
+      <div class="invalid-feedback">From Account ID is required</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="toAccountId" class="form-label">To Account Number</label>
+      <input
+        type="text"
+        id="toAccountId"
+        name="toAccountId"
+        class="form-control"
+        required
+        [(ngModel)]="transferToAccountId"
+        #toAccountIdRef="ngModel"
+        [class.is-invalid]="toAccountIdRef.invalid && toAccountIdRef.touched"
+      />
+      <div class="invalid-feedback">To Account ID is required</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="transferAmount" class="form-label">Amount</label>
+      <input
+        type="number"
+        id="transferAmount"
+        name="transferAmount"
+        class="form-control"
+        required
+        min="1"
+        [(ngModel)]="transferAmount"
+        #transferAmountRef="ngModel"
+        [class.is-invalid]="transferAmountRef.invalid && transferAmountRef.touched"
+      />
+      <div class="invalid-feedback">Amount must be at least 1</div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary w-100"
+      [disabled]="transferForm.invalid || loading"
+    >
+      Transfer
+    </button>
+
+    
+  </form>
+</div>

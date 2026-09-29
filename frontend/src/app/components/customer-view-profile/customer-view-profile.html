@@ -1,0 +1,25 @@
+<div class="container mt-4" *ngIf="customer; else noData">
+  <h3 class="mb-4">Customer Profile</h3>
+
+  <div class="card p-4 shadow-sm">
+    <div class="d-flex flex-column gap-3">
+
+      <div><strong>Customer ID:</strong> {{ customer.customerId }}</div>
+      <div><strong>User ID:</strong> {{ customer.userId }}</div>
+      <div><strong>Name:</strong> {{ customer.name }}</div>
+      <div><strong>Gender:</strong> {{ customer.gender }}</div>
+      <div><strong>Contact Number:</strong> {{ customer.contactNumber }}</div>
+      <div><strong>Address:</strong> {{ customer.address }}</div>
+      <div><strong>Date of Birth:</strong> {{ customer.dateOfBirth | date:'mediumDate' }}</div>
+      <div><strong>Aadhar Number:</strong> {{ customer.aadharNumber }}</div>
+      <div><strong>PAN Number:</strong> {{ customer.panNumber }}</div>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #noData>
+  <div class="alert alert-warning mt-4" role="alert">
+    No customer profile found.
+  </div>
+</ng-template>

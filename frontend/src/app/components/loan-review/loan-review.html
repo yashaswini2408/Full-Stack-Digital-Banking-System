@@ -1,0 +1,47 @@
+<div class="container py-4">
+  <h3 class="text-primary mb-3">Loan Applications</h3>
+
+  <div class="table-responsive shadow-sm rounded">
+    <table class="table table-bordered table-hover text-center align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>App ID</th>
+          <th>Customer ID</th>
+          <th>Loan ID</th>
+          <th>Amount</th>
+          <th>Purpose</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let loan of loanApplications">
+          <td>{{ loan.applicationId }}</td>
+          <td>{{ loan.customerId }}</td>
+          <td>{{ loan.loanId }}</td>
+          <td>{{ loan.requestedAmount }}</td>
+          <td class="text-start">{{ loan.purpose }}</td>
+          <td>{{ loan.applicationDate }}</td>
+          <td *ngIf="editMode !== loan.applicationId">{{ loan.status }}</td>
+          <td *ngIf="editMode === loan.applicationId">
+            <select [(ngModel)]="editedStatus" class="form-select">
+              <option value="PENDING">PENDING</option>
+              <option value="APPROVED">APPROVED</option>
+              <option value="REJECTED">REJECTED</option>
+            </select>
+          </td>
+          <td>
+            <button *ngIf="editMode !== loan.applicationId" class="btn btn-sm btn-warning" (click)="enableEdit(loan.applicationId!, loan.status!)">
+              Edit
+            </button>
+            <div *ngIf="editMode === loan.applicationId" class="d-flex justify-content-center gap-2">
+              <button class="btn btn-sm btn-success" (click)="updateStatus(loan.applicationId!)">Save</button>
+              <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">Cancel</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

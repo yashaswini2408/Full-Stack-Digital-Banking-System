@@ -1,0 +1,46 @@
+<div class="container py-4">
+ 
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+    <h4 class="text-primary mb-3 mb-md-0">All Customers</h4>
+    <input
+      type="text"
+      class="form-control"
+      style="max-width: 250px;"
+      placeholder="Search by Customer ID"
+      [(ngModel)]="searchId"
+      (input)="filterCustomers()"
+    />
+  </div>
+
+ 
+  <div class="table-responsive shadow-sm rounded">
+    <table class="table table-bordered table-hover table-sm align-middle text-center">
+      <thead class="table-dark text-center">
+        <tr>
+          <th style="min-width: 80px;">ID</th>
+          <th style="min-width: 100px;">User ID</th>
+          <th style="min-width: 120px;">Name</th>
+          <th style="min-width: 90px;">Gender</th>
+          <th style="min-width: 130px;">Contact</th>
+          <th style="min-width: 200px;" class="text-start">Address</th>
+          <th style="min-width: 120px;">DOB</th>
+          <th style="min-width: 150px;">Aadhar</th>
+          <th style="min-width: 150px;">PAN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of filteredCustomers">
+          <td>{{ customer.customerId }}</td>
+          <td>{{ customer.userId }}</td>
+          <td>{{ customer.name }}</td>
+          <td>{{ customer.gender }}</td>
+          <td>{{ customer.contactNumber }}</td>
+          <td class="text-start">{{ customer.address }}</td>
+          <td>{{ customer.dateOfBirth }}</td>
+          <td>{{ customer.aadharNumber }}</td>
+          <td>{{ customer.panNumber }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
