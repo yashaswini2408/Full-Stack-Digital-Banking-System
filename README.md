@@ -1,63 +1,66 @@
-# Full-Stack-Digital-Banking-System
-A production-style full-stack digital banking platform built using Spring Boot, MySQL, and React. The system simulates real-world banking operations such as account management, transactions, loan processing, and beneficiary management.
+# Full-Stack Digital Banking System
 
-Backend
+A full-stack digital banking platform built using **Spring Boot, MySQL, and React**. The system simulates real-world banking operations such as account management, fund transactions, loan processing, and beneficiary management.
 
-Java 17
-Spring Boot
-Spring Data JPA
-Hibernate
-Maven
-MySQL
-Swagger OpenAPI
-Frontend
+---
 
-React
-Bootstrap / Material UI
-TypeScript / JavaScript
-REST API Integration
-Tools
+## Technologies Used
 
-Git & GitHub
-Postman
-Swagger UI
-Docker (optional)
-Core Features
-Customer
+### Backend
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- Maven
+- MySQL
+- Swagger / OpenAPI
 
-Register / Login
-Open bank accounts
-Deposit, withdraw, and transfer funds
-View transaction history
-Add beneficiaries
-Apply for loans
-Employee
+### Frontend
+- React
+- TypeScript / JavaScript
+- Bootstrap / Material UI
+- REST API Integration
 
-Review transactions
-Approve or reject loan applications
-Monitor customer accounts
-Admin
+### Tools
+- Git & GitHub
+- Postman
+- Swagger UI
+- Docker (Optional)
 
-Manage users and employees
-Generate system reports
-System Architecture
-Frontend (React) ↓ Spring Boot REST API ↓ Service Layer ↓ Repository Layer (JPA) ↓ MySQL Database
+---
 
-API Documentation
-Swagger UI available at: http://localhost:9090/swagger-ui.html
+## Key Features
 
-Base API URL: http://localhost:9090
+### Customer
+- Register and login
+- Open bank accounts
+- Deposit funds
+- Withdraw funds
+- Transfer funds
+- View transaction history
+- Add beneficiaries
+- Apply for loans
 
-Running the Backend
-Clone repository git clone https://github.com/ananya900/full-stack-digital-banking-system.git
+### Employee
+- Review transactions
+- Approve or reject loan applications
+- Monitor customer accounts
 
-Configure database in: src/main/resources/application.properties
+### Admin
+- Manage users and employees
+- Generate system reports
 
-Build project mvn clean install
+---
 
-Run application mvn spring-boot:run
+## System Architecture
 
-Backend will start at: http://localhost:9090
-
-Project Structure
-full-stack-digital-banking-system │ ├── backend │ ├── controller │ ├── service │ ├── repository │ ├── entity │ └── config │ ├── frontend │ └── react-app │ └── docs
+```text
+React Frontend
+      ↓
+Spring Boot REST API
+      ↓
+Service Layer
+      ↓
+Repository Layer (JPA)
+      ↓
+MySQL Database
